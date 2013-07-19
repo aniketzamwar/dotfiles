@@ -72,3 +72,13 @@ save (){
 }
 source ~/.dirs  # Initialization for the above 'save' facility: source the .sdirs file
 shopt -s cdable_vars # set the bash option so that no '$' is required when using the above facility
+
+#-------------------------------------------------------------
+# Misc
+#-------------------------------------------------------------
+alias g='grep -i'  #case insensitive grep
+alias f='find . -iname'
+alias ducks='du -cks * | sort -rn|head -11' # Lists the size of all the folders and files
+alias top='top -o cpu'
+alias systail='tail -f /var/log/system.log'
+alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
