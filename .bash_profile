@@ -1,4 +1,9 @@
 
+echo -e "Kernel Information: " `uname -smr`
+echo -e "${COLOR_BROWN}`bash --version`"
+echo -ne "${COLOR_GRAY}Uptime: "; uptime
+echo -ne "${COLOR_GRAY}Server time is: "; date
+
 #-------------------------------------------------------------
 # Display settings and colors
 #-------------------------------------------------------------
@@ -52,5 +57,18 @@ alias ltr='ls -ltrh'       # sort by date, most recent last
 # Get readable list of network IPs
 #-------------------------------------------------------------
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
-alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 
+
+#-------------------------------------------------------------
+# Bookmarking of folders and files
+#-------------------------------------------------------------
+if [ ! -f ~/.dirs ]; then  # if doesn't exist, create it
+    touch ~/.dirs
+fi
+
+alias show='cat ~/.dirs'
+save (){
+    command sed "/!$/d" ~/.dirs > ~/.dirs1; \mv ~/.dirs1 ~/.dirs; echo "$@"="`pwd`" >> ~/.dirs; source ~/.dirs ; 
+}
+source ~/.dirs  # Initialization for the above 'save' facility: source the .sdirs file
+shopt -s cdable_vars # set the bash option so that no '$' is required when using the above facility
